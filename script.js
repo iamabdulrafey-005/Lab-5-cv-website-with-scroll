@@ -86,10 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
       morphWatermark(activeMorph || defaultWatermark);
     });
 
-    // Close mobile nav menu on link click
+    // Trigger pulse and morph on click
     link.addEventListener('click', () => {
       const morphTarget = link.getAttribute('data-morph');
-      if (morphTarget) defaultWatermark = morphTarget;
+      if (morphTarget) {
+        defaultWatermark = morphTarget;
+        morphWatermark(morphTarget);
+      }
+
+      // Backend event trigger: pulse animation on watermark
+      if (watermarkText) {
+        watermarkText.classList.remove('is-pulsing');
+        void watermarkText.offsetWidth; // Force reflow
+        watermarkText.classList.add('is-pulsing');
+      }
 
       const navContainer = document.getElementById('navLinks');
       const hamburger = document.getElementById('hamburgerBtn');

@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════════════
-   Abdul Rafay — Cyber Indigo & Deep Slate Theme
+   Abdul Rafay — Signature Warm Dark Palette (Electric Gold, Rose & Violet)
    Production Single-Page Portfolio & Engineering CV
    ════════════════════════════════════════════════════════════════════ */
 
@@ -11,24 +11,29 @@
 }
 
 :root {
-  /* ── Color Architecture ── */
-  --canvas:           #0B0F19;
-  --surface:          #111827;
-  --surface-alt:      #0E1422;
-  --surface-hover:    #1A2234;
+  /* ── Color Architecture: Signature Warm Midnight ── */
+  --canvas:           #07070B;
+  --surface:          #13111D;
+  --surface-alt:      #0D0C14;
+  --surface-hover:    #1C182A;
   --border:           rgba(255, 255, 255, 0.08);
-  --border-hover:     rgba(99, 102, 241, 0.4);
+  --border-hover:     rgba(245, 158, 11, 0.45);
 
-  /* ── Brand Accents ── */
-  --accent-indigo:    #6366F1;   /* Electric Indigo */
-  --accent-violet:    #A855F7;   /* Electric Violet */
-  --accent-cyan:      #38BDF8;
-  --accent-emerald:   #10B981;
+  /* ── Signature Brand Accents (Gold, Rose, Violet) ── */
+  --accent-gold:      #F59E0B;   /* Electric Gold */
+  --accent-amber:     #FBBF24;   /* Warm Amber */
+  --accent-rose:      #F43F5E;   /* Electric Rose */
+  --accent-violet:    #8B5CF6;   /* Electric Violet */
+
+  /* Aliases for components */
+  --accent-indigo:    #F59E0B;   /* Mapped to signature Gold */
+  --accent-cyan:      #FBBF24;   /* Mapped to signature Amber */
+  --accent-emerald:   #F43F5E;   /* Mapped to signature Rose */
 
   /* ── Typography Colors ── */
-  --text-heading:     #F9FAFB;
-  --text-muted:       #9CA3AF;
-  --text-subtle:      #6B7280;
+  --text-heading:     #FAFAFA;
+  --text-muted:       #A1A1AA;
+  --text-subtle:      #71717A;
 
   --nav-height:       72px;
 }
@@ -58,6 +63,22 @@ ul {
   list-style: none;
 }
 
+/* ── Body Ambient Texture ─────────────────────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(245, 158, 11, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(244, 63, 94, 0.07) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 55%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+
 /* ══════════════════════════════════════════════════════════════════
    1. DYNAMIC PARALLAX WATERMARK LAYER (KINETIC TYPOGRAPHY)
    ══════════════════════════════════════════════════════════════════ */
@@ -84,16 +105,37 @@ ul {
   font-weight: 900;
   letter-spacing: -0.04em;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.05);
+  -webkit-text-stroke: 1.5px rgba(245, 158, 11, 0.12);
   text-transform: uppercase;
   user-select: none;
   display: inline-block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, -webkit-text-stroke 0.4s ease;
 }
 
 .watermark-text.is-morphing {
-  opacity: 0.2;
-  transform: scale(0.96);
+  opacity: 0.15;
+  transform: scale(0.95);
+}
+
+/* Event Click Explosion Wave (Backend Animation) */
+.watermark-text.is-pulsing {
+  animation: watermark-pulse 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes watermark-pulse {
+  0% {
+    transform: scale(1);
+    -webkit-text-stroke: 1.5px rgba(245, 158, 11, 0.12);
+  }
+  30% {
+    transform: scale(1.08);
+    -webkit-text-stroke: 2.5px rgba(244, 63, 94, 0.45);
+    filter: drop-shadow(0 0 45px rgba(245, 158, 11, 0.35));
+  }
+  100% {
+    transform: scale(1);
+    -webkit-text-stroke: 1.5px rgba(245, 158, 11, 0.12);
+  }
 }
 
 /* Ambient Neon Glow Sprays */
@@ -103,13 +145,14 @@ ul {
   pointer-events: none;
   z-index: 0;
   filter: blur(140px);
-  opacity: 0.28;
+  opacity: 0.32;
+  transition: transform 0.8s ease;
 }
 
 .ambient-glow--indigo {
   width: 600px;
   height: 600px;
-  background: var(--accent-indigo);
+  background: var(--accent-gold);
   top: -15%;
   left: -10%;
 }
@@ -117,7 +160,7 @@ ul {
 .ambient-glow--violet {
   width: 550px;
   height: 550px;
-  background: var(--accent-violet);
+  background: var(--accent-rose);
   bottom: -10%;
   right: -8%;
 }
@@ -132,7 +175,7 @@ ul {
   right: 0;
   height: var(--nav-height);
   z-index: 1000;
-  background: rgba(11, 15, 25, 0.78);
+  background: rgba(7, 7, 11, 0.82);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
           backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
@@ -165,15 +208,15 @@ ul {
 }
 
 .brand-dot {
-  color: var(--accent-indigo);
-  text-shadow: 0 0 12px var(--accent-indigo);
+  color: var(--accent-gold);
+  text-shadow: 0 0 12px var(--accent-gold);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 4px;
-  background: rgba(17, 24, 39, 0.65);
+  background: rgba(19, 17, 29, 0.72);
   border: 1px solid var(--border);
   border-radius: 9999px;
   padding: 4px 6px;
@@ -196,20 +239,22 @@ ul {
 }
 
 .nav-link.is-active {
-  color: #fff !important;
-  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.38);
+  color: #0B0710 !important;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.38);
+  font-weight: 700;
 }
 
 .nav-link--cta {
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  color: var(--accent-indigo);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--accent-gold);
 }
 
 .nav-link--cta:hover {
-  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
-  color: #fff !important;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
+  color: #0B0710 !important;
+  font-weight: 700;
 }
 
 /* Mobile Hamburger */
@@ -272,18 +317,18 @@ ul {
   height: clamp(210px, 22vw, 260px);
   border-radius: 50%;
   padding: 4px;
-  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet), var(--accent-cyan));
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose), var(--accent-violet));
   box-shadow:
-    0 0 35px rgba(99, 102, 241, 0.4),
-    0 0 70px rgba(168, 85, 247, 0.2);
+    0 0 35px rgba(245, 158, 11, 0.4),
+    0 0 70px rgba(244, 63, 94, 0.22);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .neon-ring:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
   box-shadow:
-    0 0 45px rgba(99, 102, 241, 0.6),
-    0 0 90px rgba(168, 85, 247, 0.35);
+    0 0 50px rgba(245, 158, 11, 0.65),
+    0 0 95px rgba(244, 63, 94, 0.4);
 }
 
 .avatar-frame {
@@ -316,8 +361,8 @@ ul {
   justify-content: center;
   font-size: 58px;
   font-weight: 900;
-  color: var(--accent-indigo);
-  background: linear-gradient(145deg, #161F32, #0E1422);
+  color: var(--accent-gold);
+  background: linear-gradient(145deg, #181524, #0D0A15);
   font-family: 'JetBrains Mono', monospace;
 }
 
@@ -327,9 +372,9 @@ ul {
   gap: 8px;
   font-size: 12px;
   font-weight: 600;
-  color: #C7D2FE;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.28);
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.28);
   padding: 5px 14px;
   border-radius: 9999px;
   white-space: nowrap;
@@ -339,8 +384,8 @@ ul {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent-indigo);
-  box-shadow: 0 0 10px var(--accent-indigo);
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
   animation: pulsar 2s infinite ease-in-out;
 }
 
@@ -361,9 +406,9 @@ ul {
   gap: 8px;
   font-size: 12.5px;
   font-weight: 600;
-  color: #DDD6FE;
-  background: rgba(168, 85, 247, 0.12);
-  border: 1px solid rgba(168, 85, 247, 0.28);
+  color: #FDE68A;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.28);
   padding: 5px 14px;
   border-radius: 9999px;
   margin-bottom: 20px;
@@ -373,8 +418,8 @@ ul {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--accent-violet);
-  box-shadow: 0 0 8px var(--accent-violet);
+  background: var(--accent-gold);
+  box-shadow: 0 0 8px var(--accent-gold);
 }
 
 .hero-title {
@@ -387,7 +432,7 @@ ul {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-violet) 70%, var(--accent-cyan) 100%);
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-rose) 60%, var(--accent-violet) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -401,7 +446,7 @@ ul {
 }
 
 .hero-subtitle .sep {
-  color: var(--accent-indigo);
+  color: var(--accent-gold);
   margin: 0 6px;
 }
 
@@ -436,28 +481,29 @@ ul {
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-rose));
+  color: #0B0710;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
 }
 
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(168, 85, 247, 0.45);
+  box-shadow: 0 8px 28px rgba(244, 63, 94, 0.45);
   filter: brightness(1.1);
 }
 
 .btn--secondary {
-  background: rgba(17, 24, 39, 0.85);
+  background: rgba(19, 17, 29, 0.85);
   color: #F3F4F6;
   border: 1px solid var(--border);
 }
 
 .btn--secondary:hover {
-  border-color: var(--accent-indigo);
+  border-color: var(--accent-gold);
   color: #fff;
   transform: translateY(-2px);
-  background: rgba(99, 102, 241, 0.08);
+  background: rgba(245, 158, 11, 0.08);
 }
 
 .btn--ghost {
@@ -484,7 +530,7 @@ ul {
   gap: 7px;
   font-size: 12.5px;
   color: var(--text-muted);
-  background: rgba(17, 24, 39, 0.7);
+  background: rgba(19, 17, 29, 0.75);
   border: 1px solid var(--border);
   padding: 6px 14px;
   border-radius: 8px;
@@ -493,13 +539,13 @@ ul {
 
 a.info-chip:hover {
   color: #fff;
-  border-color: var(--accent-indigo);
-  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--accent-gold);
+  background: rgba(245, 158, 11, 0.12);
   transform: translateY(-1px);
 }
 
 .info-chip svg {
-  color: var(--accent-indigo);
+  color: var(--accent-gold);
   flex-shrink: 0;
 }
 
@@ -915,16 +961,17 @@ a.info-chip:hover {
 
 .cert-thumb-wrap {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 11;
   position: relative;
   overflow: hidden;
-  background: #0E1422;
+  background: #0E0C16;
 }
 
 .cert-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   display: block;
   transition: transform 0.4s ease;
 }
@@ -933,27 +980,10 @@ a.info-chip:hover {
   transform: scale(1.05);
 }
 
-.cert-placeholder {
-  display: none;
-  width: 100%;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--text-subtle);
-  background: linear-gradient(145deg, #161F32, #0E1422);
-}
-
-.cert-placeholder span {
-  font-size: 12px;
-  font-weight: 600;
-}
-
 .cert-zoom-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(11, 15, 25, 0.7);
+  background: rgba(7, 7, 11, 0.75);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -968,6 +998,7 @@ a.info-chip:hover {
 .cert-zoom-overlay span {
   font-size: 12.5px;
   font-weight: 600;
+  color: #FDE68A;
 }
 
 .cert-card:hover .cert-zoom-overlay {
@@ -981,16 +1012,34 @@ a.info-chip:hover {
   flex-direction: column;
 }
 
+.cert-meta-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
 .cert-year {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   font-weight: 700;
-  color: var(--accent-indigo);
-  margin-bottom: 6px;
+  color: var(--accent-gold);
+}
+
+.cert-brand-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: #FDA4AF;
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
 .cert-name {
-  font-size: 16px;
+  font-size: 16.5px;
   font-weight: 700;
   color: #fff;
   line-height: 1.35;

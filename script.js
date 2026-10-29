@@ -301,13 +301,129 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
           }
 
-          // Auto-hide success alert after 8 seconds
-          setTimeout(() => {
-            if (formSuccess) formSuccess.classList.remove('is-visible');
-          }, 8000);
-        }, 800);
+  // ═════════════════════════════════════════════════════════════════
+  // 7. LIVE BACKEND TELEMETRY HUD & DYNAMIC CONSOLE SIMULATOR
+  // ═════════════════════════════════════════════════════════════════
+  const hudElement = document.getElementById('telemetryHud');
+  const hudTerminal = document.getElementById('hudTerminal');
+  const hudLatency = document.getElementById('hudLatency');
+  let hudIdleTimer = null;
+
+  function pushTelemetryLog(logMessage, isHighlight = false) {
+    if (!hudTerminal) return;
+
+    // Flash HUD Active status
+    if (hudElement) hudElement.classList.add('is-active');
+
+    // Random simulated latency between 0.8ms - 2.8ms
+    const randomLatency = (Math.random() * 2 + 0.8).toFixed(1) + 'ms';
+    if (hudLatency) hudLatency.textContent = randomLatency;
+
+    const line = document.createElement('div');
+    line.className = 'hud-line' + (isHighlight ? ' hud-highlight' : '');
+    line.innerHTML = logMessage;
+    hudTerminal.appendChild(line);
+
+    // Limit maximum retained terminal log lines to 4
+    while (hudTerminal.children.length > 4) {
+      hudTerminal.removeChild(hudTerminal.firstChild);
+    }
+
+    clearTimeout(hudIdleTimer);
+    hudIdleTimer = setTimeout(() => {
+      if (hudElement) hudElement.classList.remove('is-active');
+      if (hudLatency) hudLatency.textContent = 'IDLE';
+    }, 4000);
+  }
+
+
+  // ═════════════════════════════════════════════════════════════════
+  // 8. FRONTEND KINETIC MICRO-INTERACTIONS (CLICK SHOCKWAVE RIPPLE)
+  // ═════════════════════════════════════════════════════════════════
+  const interactiveSelectors = [
+    '.btn',
+    '.info-chip',
+    '.cert-card',
+    '.project-card',
+    '.nav-link',
+    '.nav-brand',
+    '.contact-tile',
+    '.tech-chip',
+    '.skill-card',
+    '.philosophy-card'
+  ];
+
+  document.querySelectorAll(interactiveSelectors.join(',')).forEach(el => {
+    el.classList.add('has-ripple');
+
+    el.addEventListener('mousedown', (e) => {
+      const rect = el.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'click-ripple';
+
+      const size = Math.max(rect.width, rect.height) * 2;
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+
+      el.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 700);
+
+      // Trigger contextual telemetry based on clicked element
+      const text = el.textContent || '';
+      if (text.includes('VaultProxy') || el.closest('#projects')) {
+        pushTelemetryLog('<strong>[DB-CONCURRENCY]</strong> Acquired atomic lock :: MongoDB transaction isolated :: Latency 1.2ms', true);
+      } else if (text.includes('Certificate') || el.closest('#certificates')) {
+        pushTelemetryLog('<strong>[STORAGE-GATEWAY]</strong> Hydrating verified credentials :: CDN response 200 OK', true);
+      } else if (text.includes('Skills') || el.closest('#skills')) {
+        pushTelemetryLog('<strong>[STACK-RESOLVER]</strong> Loaded full-stack profile module :: Cache HIT', false);
+      } else if (text.includes('Education') || el.closest('#education')) {
+        pushTelemetryLog('<strong>[ACADEMIC-INDEX]</strong> Queried Qarshi University BSCS verification record', false);
+      } else if (text.includes('Send') || el.closest('#contact')) {
+        pushTelemetryLog('<strong>[AUTH-GATEWAY]</strong> Sanitizing payload :: Handshake validated :: Rate-limit OK', true);
+      } else {
+        pushTelemetryLog('<strong>[DISPATCH]</strong> Event loop active &bull; User action routed', false);
       }
     });
-  }
+  });
+
+
+  // ═════════════════════════════════════════════════════════════════
+  // 9. 3D CARD MOUSE TILT & HOVER ILLUMINATION SPOTLIGHT
+  // ═════════════════════════════════════════════════════════════════
+  const tiltCards = document.querySelectorAll('.project-card, .skill-card, .philosophy-card');
+
+  tiltCards.forEach(card => {
+    // Inject spotlight overlay element
+    const spotlight = document.createElement('div');
+    spotlight.className = 'card-spotlight';
+    card.appendChild(spotlight);
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Update spotlight position coordinates
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+
+      // Compute 3D tilt angles (max +/- 7deg)
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  });
 
 });

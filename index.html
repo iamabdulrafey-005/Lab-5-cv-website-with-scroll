@@ -699,6 +699,22 @@
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  LIVE BACKEND TELEMETRY HUD / SYSTEM TERMINAL                  -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <aside class="telemetry-hud" id="telemetryHud" aria-live="polite">
+    <div class="hud-header">
+      <div class="hud-status">
+        <span class="hud-indicator" id="hudIndicator"></span>
+        <span class="hud-title">SYSTEM MONITOR :: RUNTIME</span>
+      </div>
+      <span class="hud-latency" id="hudLatency">ONLINE</span>
+    </div>
+    <div class="hud-terminal" id="hudTerminal">
+      <div class="hud-line hud-line--init">[SYS-INIT] Telemetry loop active &bull; Concurrency engine ready</div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
   <!--  CERTIFICATE LIGHTBOX MODAL                                    -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-hidden="true">

@@ -1584,28 +1584,225 @@ a.contact-tile:hover {
   }
 }
 
-@media (max-width: 480px) {
-  .section {
-    padding: 72px 16px;
-  }
+/* ══════════════════════════════════════════════════════════════════
+   12. KINETIC MICRO-INTERACTIONS (RIPPLES & PARTICLES)
+   ══════════════════════════════════════════════════════════════════ */
+.has-ripple {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
 
-  .hero-ctas {
-    flex-direction: column;
-    width: 100%;
-  }
+.click-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(244, 63, 94, 0.3) 50%, transparent 75%);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.5);
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple-expansion 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 10;
+}
 
-  .btn {
-    width: 100%;
-    justify-content: center;
+@keyframes ripple-expansion {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
   }
-
-  .hero-info-bar {
-    flex-direction: column;
-    align-items: stretch;
+  60% {
+    opacity: 0.8;
   }
-
-  .contact-tile {
-    flex-direction: column;
-    text-align: center;
+  100% {
+    transform: translate(-50%, -50%) scale(2.8);
+    opacity: 0;
   }
 }
+
+/* Subtle Active Scale-Down Punch */
+.btn:active,
+.info-chip:active,
+.nav-link:active,
+.contact-tile:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   13. 3D CARD TILT & HOVER ILLUMINATION SPOTLIGHT
+   ══════════════════════════════════════════════════════════════════ */
+.project-card,
+.skill-card,
+.philosophy-card {
+  position: relative;
+  transition: transform 0.18s ease-out, border-color 0.25s ease, box-shadow 0.25s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245, 158, 11, 0.22) 0%, rgba(244, 63, 94, 0.12) 40%, transparent 70%);
+  z-index: 2;
+}
+
+.project-card:hover .card-spotlight,
+.skill-card:hover .card-spotlight,
+.philosophy-card:hover .card-spotlight {
+  opacity: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   14. LIVE BACKEND TELEMETRY HUD
+   ══════════════════════════════════════════════════════════════════ */
+.telemetry-hud {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: clamp(280px, 32vw, 390px);
+  max-width: calc(100vw - 32px);
+  background: rgba(14, 12, 21, 0.88);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.65), 0 0 25px rgba(245, 158, 11, 0.12);
+  backdrop-filter: blur(16px);
+  z-index: 1200;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.telemetry-hud.is-active {
+  border-color: rgba(244, 63, 94, 0.55);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(244, 63, 94, 0.25);
+  transform: translateY(-2px);
+}
+
+.hud-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.hud-status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hud-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.telemetry-hud.is-active .hud-indicator {
+  background: #F43F5E;
+  box-shadow: 0 0 12px #F43F5E;
+}
+
+.hud-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #D4D4D8;
+}
+
+.hud-latency {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FBBF24;
+}
+
+.hud-terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 96px;
+  overflow: hidden;
+}
+
+.hud-line {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #E4E4E7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: hud-line-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hud-line--init {
+  color: #A1A1AA;
+}
+
+.hud-line strong {
+  color: #FBBF24;
+}
+
+.hud-line.hud-highlight {
+  color: #FDA4AF;
+}
+
+@keyframes hud-line-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   15. ELASTIC CERTIFICATE LIGHTBOX POLISH
+   ══════════════════════════════════════════════════════════════════ */
+.lightbox-modal.is-open .lightbox-dialog {
+  animation: lightbox-elastic 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes lightbox-elastic {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lightbox-modal.is-open .lightbox-backdrop {
+  animation: backdrop-pulse 0.4s ease-out forwards;
+}
+
+@keyframes backdrop-pulse {
+  0% {
+    background: rgba(7, 10, 18, 0);
+  }
+  100% {
+    background: rgba(7, 10, 18, 0.88);
+  }
+}
+
+@media (max-width: 600px) {
+  .telemetry-hud {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
+

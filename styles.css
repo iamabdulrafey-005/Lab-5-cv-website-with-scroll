@@ -1806,3 +1806,205 @@ a.contact-tile:hover {
   }
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   16. 10-SECOND REACTIVE COLOR OVERDRIVE THEMES (BACKEND & FRONTEND)
+   ══════════════════════════════════════════════════════════════════ */
+body {
+  --overdrive-glow-1: rgba(245, 158, 11, 0.12);
+  --overdrive-glow-2: rgba(244, 63, 94, 0.1);
+  --overdrive-border: rgba(245, 158, 11, 0.4);
+  --overdrive-speed: 1;
+  transition: background-color 0.6s ease;
+}
+
+/* 10s Overdrive: Skills (Cyber Amber & Cyan) */
+body[data-overdrive="skills"] {
+  --accent-gold: #FBBF24;
+  --accent-amber: #38BDF8;
+  --accent-rose: #0EA5E9;
+  --overdrive-glow-1: rgba(251, 191, 36, 0.35);
+  --overdrive-glow-2: rgba(56, 189, 248, 0.3);
+  --overdrive-border: rgba(56, 189, 248, 0.6);
+  --border-hover: rgba(56, 189, 248, 0.7);
+}
+
+/* 10s Overdrive: Projects (Neon Rose & Crimson Flare) */
+body[data-overdrive="projects"] {
+  --accent-gold: #F43F5E;
+  --accent-amber: #FB7185;
+  --accent-rose: #E11D48;
+  --overdrive-glow-1: rgba(244, 63, 94, 0.38);
+  --overdrive-glow-2: rgba(251, 113, 133, 0.3);
+  --overdrive-border: rgba(244, 63, 94, 0.65);
+  --border-hover: rgba(244, 63, 94, 0.75);
+}
+
+/* 10s Overdrive: Philosophy (Quantum Violet & Indigo) */
+body[data-overdrive="philosophy"] {
+  --accent-gold: #8B5CF6;
+  --accent-amber: #A855F7;
+  --accent-rose: #6366F1;
+  --overdrive-glow-1: rgba(139, 92, 246, 0.36);
+  --overdrive-glow-2: rgba(99, 102, 241, 0.28);
+  --overdrive-border: rgba(139, 92, 246, 0.65);
+  --border-hover: rgba(168, 85, 247, 0.75);
+}
+
+/* 10s Overdrive: Certificates (Verified Emerald & Shield Gold) */
+body[data-overdrive="certificates"] {
+  --accent-gold: #10B981;
+  --accent-amber: #34D399;
+  --accent-rose: #F59E0B;
+  --overdrive-glow-1: rgba(16, 185, 129, 0.38);
+  --overdrive-glow-2: rgba(245, 158, 11, 0.3);
+  --overdrive-border: rgba(16, 185, 129, 0.65);
+  --border-hover: rgba(52, 211, 153, 0.75);
+}
+
+/* 10s Overdrive: Education (Blue Matrix & Violet) */
+body[data-overdrive="education"] {
+  --accent-gold: #3B82F6;
+  --accent-amber: #60A5FA;
+  --accent-rose: #8B5CF6;
+  --overdrive-glow-1: rgba(59, 130, 246, 0.36);
+  --overdrive-glow-2: rgba(139, 92, 246, 0.28);
+  --overdrive-border: rgba(59, 130, 246, 0.65);
+  --border-hover: rgba(96, 165, 250, 0.75);
+}
+
+/* 10s Overdrive: Contact (Prismatic Electric Warp) */
+body[data-overdrive="contact"] {
+  --accent-gold: #EC4899;
+  --accent-amber: #F43F5E;
+  --accent-rose: #F59E0B;
+  --overdrive-glow-1: rgba(236, 72, 153, 0.4);
+  --overdrive-glow-2: rgba(245, 158, 11, 0.3);
+  --overdrive-border: rgba(236, 72, 153, 0.65);
+  --border-hover: rgba(244, 63, 94, 0.75);
+}
+
+/* Overdrive Ambient Glow Overlay */
+.overdrive-aura {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease, background 0.6s ease;
+  background-image:
+    radial-gradient(circle at 20% 30%, var(--overdrive-glow-1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, var(--overdrive-glow-2) 0%, transparent 50%);
+}
+
+body.is-overdrive .overdrive-aura {
+  opacity: 1;
+}
+
+body.is-overdrive .parallax-watermark {
+  filter: drop-shadow(0 0 32px var(--overdrive-border));
+}
+
+body.is-overdrive .watermark-text {
+  -webkit-text-stroke-color: var(--overdrive-border);
+  animation: overdrive-watermark-glide 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes overdrive-watermark-glide {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.04) translateY(-8px); }
+}
+
+/* Section Focused Glowing Beam for 10 Seconds */
+.section-overdrive-focus {
+  position: relative;
+  border-color: var(--overdrive-border) !important;
+  box-shadow: 0 0 36px var(--overdrive-glow-1), inset 0 0 20px var(--overdrive-glow-2) !important;
+  animation: sectionFocusGlow 1.8s ease-in-out infinite alternate !important;
+}
+
+@keyframes sectionFocusGlow {
+  0% { box-shadow: 0 0 24px var(--overdrive-glow-1); }
+  100% { box-shadow: 0 0 48px var(--overdrive-glow-1), 0 0 16px var(--overdrive-border); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   17. MOUSE DRAG CHROMATIC INTERACTION (LIQUID PRISMATIC FLOW)
+   ══════════════════════════════════════════════════════════════════ */
+body.is-mouse-dragging {
+  user-select: none;
+  cursor: grab;
+}
+
+body.is-mouse-dragging * {
+  cursor: grabbing !important;
+}
+
+/* Cursor Trail Spotlight */
+.mouse-drag-spotlight {
+  position: fixed;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, hsla(var(--drag-hue, 45), 95%, 60%, 0.18) 0%, transparent 68%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  mix-blend-mode: screen;
+}
+
+body.is-mouse-dragging .mouse-drag-spotlight {
+  opacity: 1;
+}
+
+/* Dragging Glow Reaction on Cards */
+body.is-mouse-dragging .project-card,
+body.is-mouse-dragging .skill-card,
+body.is-mouse-dragging .philosophy-card,
+body.is-mouse-dragging .cert-card,
+body.is-mouse-dragging .edu-card {
+  border-color: hsla(var(--drag-hue, 45), 90%, 65%, 0.5) !important;
+  box-shadow: 0 14px 40px hsla(var(--drag-hue, 45), 90%, 55%, 0.16) !important;
+  transform: scale3d(1.01, 1.01, 1.01);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   18. SECTION-SPECIFIC LIVE BACKGROUND ANIMATIONS
+   ══════════════════════════════════════════════════════════════════ */
+.live-bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.85;
+  transition: opacity 0.8s ease;
+}
+
+/* 10s HUD Overdrive Countdown Badge */
+.hud-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--accent-gold);
+  margin-left: 8px;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.25s ease;
+}
+
+.hud-countdown.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+

@@ -23,6 +23,13 @@
   <!-- Ambient background glow spots -->
   <div class="ambient-glow ambient-glow--indigo" aria-hidden="true"></div>
   <div class="ambient-glow ambient-glow--violet" aria-hidden="true"></div>
+  <div class="overdrive-aura" id="overdriveAura" aria-hidden="true"></div>
+
+  <!-- Live Dynamic Shaders / Section Background Animations Canvas -->
+  <canvas id="sectionLiveCanvas" class="live-bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Mouse Drag Chromatic Spotlight -->
+  <div class="mouse-drag-spotlight" id="mouseDragSpotlight" aria-hidden="true"></div>
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!--  REACTIVE NAVBAR                                               -->
@@ -706,6 +713,7 @@
       <div class="hud-status">
         <span class="hud-indicator" id="hudIndicator"></span>
         <span class="hud-title">SYSTEM MONITOR :: RUNTIME</span>
+        <span class="hud-countdown" id="hudCountdown">10s OVERDRIVE</span>
       </div>
       <span class="hud-latency" id="hudLatency">ONLINE</span>
     </div>
